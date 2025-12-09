@@ -9,4 +9,8 @@ public class Laboratory {
         }
     }
 
+    public int getQuantity(String element) {
+        return -1;
+    }
+
 }
