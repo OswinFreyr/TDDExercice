@@ -26,8 +26,8 @@ public class Laboratory {
     }
 
     public void add(String element, double quantity) {
-        if(!elementsList.containsKey(element)) {
-            throw new IllegalArgumentException("Unknown element:" + element);
+        if(!elementsList.containsKey(element) || quantity < 0) {
+            throw new IllegalArgumentException("Unknown element:" + element + ") or negative quantity:" + quantity);
         }
         double addQuantity = quantity + elementsList.get(element);
         elementsList.replace(element, addQuantity);
