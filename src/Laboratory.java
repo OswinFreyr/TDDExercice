@@ -3,8 +3,10 @@ import java.util.Map;
 
 public class Laboratory {
 
-    public Laboratory(String[] substances) {
-        
+    public Laboratory(String[] elements) {
+        if(elements.length == 0) {
+            throw new IllegalArgumentException("Elements list cannot be empty");
+        }
     }
 
 }
