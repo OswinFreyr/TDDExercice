@@ -15,7 +15,13 @@ public class Laboratory {
                 System.out.println(reactions.get(r));
                 if(reactions.get(r).isEmpty()) {
                     throw new IllegalArgumentException("Reactions must contain at least one element");
-
+                } else {
+                    for(var e: reactions.get(r).keySet()) {
+                        System.out.println(reactions.get(r).get(e));
+                        if(reactions.get(r).get(e) <= 0.0) {
+                            throw new IllegalArgumentException("Reactions elements must be greater than zero");
+                        }
+                    }
                 }
             }
         }
