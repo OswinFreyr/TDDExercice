@@ -32,7 +32,7 @@ public class Laboratory {
                         } else if(reactions.get(r).get(e) <= 0.0) {
                             throw new IllegalArgumentException("Reactions elements must be greater than zero");
                         }
-                        if(!elementsList.containsKey(e)) {
+                        if(!elementsList.containsKey(e) && !reactions.containsKey(e)) {
                             throw new IllegalArgumentException("Element or product " + e + " does not exist");
                         }
                     }
