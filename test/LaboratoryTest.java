@@ -98,7 +98,7 @@ public class LaboratoryTest {
     @Test
     void addKnownElement() {
         var lab = new Laboratory(
-                new String[]{"Hydrogen", "Carbon"},
+                new String[]{"Hydrogen", "Carbon", "Oxygen"},
                 new HashMap<String, Map<String, Double>>() {{
                     put("Water", new HashMap<String, Double>() {{
                         put("Oxygen", 1.0);
@@ -114,7 +114,7 @@ public class LaboratoryTest {
     @Test
     void doubleAddKnownElement() {
         var lab = new Laboratory(
-                new String[]{"Hydrogen", "Carbon"},
+                new String[]{"Hydrogen", "Carbon", "Oxygen"},
                 new HashMap<String, Map<String, Double>>() {{
                     put("Water", new HashMap<String, Double>() {{
                         put("Oxygen", 1.0);
@@ -131,7 +131,7 @@ public class LaboratoryTest {
     @Test
     void addUnknownElementThrowsIllegalArgumentException() {
         var lab = new Laboratory(
-                new String[]{"Hydrogen", "Carbon"},
+                new String[]{"Hydrogen", "Carbon", "Oxygen"},
                 new HashMap<String, Map<String, Double>>() {{
                     put("Water", new HashMap<String, Double>() {{
                         put("Oxygen", 1.0);
@@ -145,7 +145,7 @@ public class LaboratoryTest {
     @Test
     void addNegativeValueOfElementThrowsIllegalArgumentException() {
         var lab = new Laboratory(
-                new String[]{"Hydrogen", "Carbon"},
+                new String[]{"Hydrogen", "Carbon", "Oxygen"},
                 new HashMap<String, Map<String, Double>>() {{
                     put("Water", new HashMap<String, Double>() {{
                         put("Oxygen", 1.0);
@@ -159,7 +159,7 @@ public class LaboratoryTest {
     @Test
     void addNullValueOfElementThrowsIllegalArgumentException() {
         var lab = new Laboratory(
-                new String[]{"Hydrogen", "Carbon"},
+                new String[]{"Hydrogen", "Carbon", "Oxygen"},
                 new HashMap<String, Map<String, Double>>() {{
                     put("Water", new HashMap<String, Double>() {{
                         put("Oxygen", 1.0);

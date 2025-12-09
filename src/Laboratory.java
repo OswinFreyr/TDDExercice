@@ -11,6 +11,14 @@ public class Laboratory {
         if(elements.length == 0 || reactions.isEmpty()) {
             throw new IllegalArgumentException("Elements or reactions list cannot be empty");
         } else {
+            for(var e : elements) {
+                if(elementsList.containsKey(e)) {
+                    throw new IllegalArgumentException("Duplicate element: " + e);
+                }
+
+                elementsList.put(e, 0.0);
+            }
+
             for(var r: reactions.keySet()) {
                 System.out.println("reac " + r);
                 System.out.println("ingr " + reactions.get(r));
@@ -18,26 +26,22 @@ public class Laboratory {
                     throw new IllegalArgumentException("Reactions must contain at least one element");
                 } else {
                     for(var e: reactions.get(r).keySet()) {
-                        System.out.println("value ingr " + reactions.get(r).get(e));
+                        System.out.println("value " + e + " " + reactions.get(r).get(e));
                         if(reactions.get(r).get(e) <= 1.0 && reactions.get(r).size() == 1.0) {
                             throw new IllegalArgumentException("Reactions of same element must be with more than one");
                         } else if(reactions.get(r).get(e) <= 0.0) {
                             throw new IllegalArgumentException("Reactions elements must be greater than zero");
                         }
+
+                        if(!elementsList.containsKey(e)) {
+                            throw new IllegalArgumentException("Element " + e + " does not exist");
+                        }
                     }
                 }
-            }
-        }
-        for(var e : elements) {
-            if(elementsList.containsKey(e)) {
-                throw new IllegalArgumentException("Duplicate element: " + e);
-            }
 
-            elementsList.put(e, 0.0);
-        }
-        for (var e : reactions.keySet()) {
-            reactionsList.put(e, reactions.get(e));
-            productsList.put(e, 0.0);
+                reactionsList.put(r, reactions.get(r));
+                productsList.put(r, 0.0);
+            }
         }
     }
 
