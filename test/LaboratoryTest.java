@@ -21,6 +21,7 @@ public class LaboratoryTest {
         assertEquals(0, lab.getQuantity("Nitrogen"));
         assertEquals(0, lab.getQuantity("Oxygen"));
         assertThrows(IllegalArgumentException.class, () -> lab.getQuantity("Helium"));
+        assertThrows(IllegalArgumentException.class, () -> lab.getQuantity("Argon"));
     }
 
 }
