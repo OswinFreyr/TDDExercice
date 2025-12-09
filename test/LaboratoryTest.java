@@ -56,4 +56,10 @@ public class LaboratoryTest {
         assertThrows(IllegalArgumentException.class, () -> lab.add("Hydrogen", -1.5));
     }
 
+    @Test
+    void addNullValueOfElementThrowsIllegalArgumentException() {
+        var lab = new Laboratory(new String[]{"Hydrogen", "Carbon"});
+        assertThrows(IllegalArgumentException.class, () -> lab.add("Hydrogen", 0));
+    }
+
 }
