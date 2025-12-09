@@ -44,4 +44,10 @@ public class LaboratoryTest {
         assertEquals(2.0, lab.getQuantity("Hydrogen"));
     }
 
+    @Test
+    void addUnknownElementThrowsIllegalArgumentException() {
+        var lab = new Laboratory(new String[]{"Hydrogen", "Carbon"});
+        assertThrows(IllegalArgumentException.class, () -> lab.add("Helium", 1.0));
+    }
+
 }
