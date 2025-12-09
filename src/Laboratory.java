@@ -17,9 +17,7 @@ public class Laboratory {
 
             elementsList.put(e, 0.0);
         }
-        for (var e : reactions.keySet()) {
-            elementsList.put(e, reactions.get(e).get(e));
-        }
+        
     }
 
     public double getQuantity(String element) {

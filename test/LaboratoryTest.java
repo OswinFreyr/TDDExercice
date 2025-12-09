@@ -47,6 +47,7 @@ public class LaboratoryTest {
         assertEquals(0.0, lab.getQuantity("Oxygen"));
         assertThrows(IllegalArgumentException.class, () -> lab.getQuantity("Helium"));
         assertThrows(IllegalArgumentException.class, () -> lab.getQuantity("Argon"));
+        assertEquals(0.0, lab.getQuantity("Water"));
     }
 
     @Test
