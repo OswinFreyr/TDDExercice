@@ -28,6 +28,12 @@ public class LaboratoryTest {
                     }});
                 }}
         ));
+        assertThrows(IllegalArgumentException.class, () -> new Laboratory(
+                new String[]{"Hydrogen", "Carbon"},
+                new HashMap<String, Map<String, Double>>() {{
+                    put("Water", new HashMap<String, Double>());
+                }}
+        ));
     }
 
     @Test
