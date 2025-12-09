@@ -12,10 +12,12 @@ public class Laboratory {
             throw new IllegalArgumentException("Elements or reactions list cannot be empty");
         } else {
             for(var r: reactions.keySet()) {
+                System.out.println(reactions.get(r));
                 if(reactions.get(r).isEmpty()) {
                     throw new IllegalArgumentException("Reactions must contain at least one element");
                 } else {
                     for(var e: reactions.get(r).keySet()) {
+                        System.out.println(reactions.get(r).get(e));
                         if(reactions.get(r).get(e) <= 1.0 && reactions.get(r).size() == 1.0) {
                             throw new IllegalArgumentException("Reactions of same element must be with more than one");
                         } else if(reactions.get(r).get(e) <= 0.0) {
@@ -33,6 +35,7 @@ public class Laboratory {
             elementsList.put(e, 0.0);
         }
         for (var e : reactions.keySet()) {
+            
             reactionsList.put(e, reactions.get(e));
             productsList.put(e, 0.0);
         }
