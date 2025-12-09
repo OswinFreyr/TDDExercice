@@ -51,7 +51,15 @@ public class LaboratoryTest {
                     }});
                 }}
         ));
-
+        assertThrows(IllegalArgumentException.class, () -> new Laboratory(
+                new String[]{"Hydrogen", "Oxygen"},
+                new HashMap<String, Map<String, Double>>() {{
+                    put("Water", new HashMap<String, Double>() {{
+                        put("Helium", 2.0);
+                        put("Oxygen", 1.0);
+                    }});
+                }}
+        ));
     }
 
     @Test
@@ -79,19 +87,6 @@ public class LaboratoryTest {
         assertThrows(IllegalArgumentException.class, () -> new Laboratory(
                 new String[]{"Hydrogen", "Carbon", "Hydrogen"},
                 new HashMap<String, Map<String, Double>>() {{
-                    put("Water", new HashMap<String, Double>() {{
-                        put("Oxygen", 1.0);
-                        put("Hydrogen", 2.0);
-                    }});
-                }}
-        ));
-        assertThrows(IllegalArgumentException.class, () -> new Laboratory(
-                new String[]{"Hydrogen", "Carbon", "Oxygen"},
-                new HashMap<String, Map<String, Double>>() {{
-                    put("Water", new HashMap<String, Double>() {{
-                        put("Oxygen", 1.0);
-                        put("Hydrogen", 2.0);
-                    }});
                     put("Water", new HashMap<String, Double>() {{
                         put("Oxygen", 1.0);
                         put("Hydrogen", 2.0);
