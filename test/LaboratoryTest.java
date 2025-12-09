@@ -1,19 +1,41 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LaboratoryTest {
     private Laboratory laboratory;
 
     @Test
-    void initWithEmptyElementsListThrowsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, () -> new Laboratory(new String[]{}));
+    void initWithEmptyElementsListOrMapThrowsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new Laboratory(
+                new String[]{},
+                new HashMap<>()
+        ));
+        assertThrows(IllegalArgumentException.class, () -> new Laboratory(
+                new String[]{"Hydrogen", "Carbon"},
+                new HashMap<>()
+        ));
+        assertThrows(IllegalArgumentException.class, () -> new Laboratory(
+                new String[]{},
+                new HashMap<String, Map<String, Double>>() {{
+                    put("Water", new HashMap<String, Double>() {{
+                        put("Oxygen", 1.0);
+                        put("Hydrogen", 2.0);
+                    }});
+                }}
+        ));
     }
 
     @Test
-    void initWithRegularElementsList() {
-        var lab = new Laboratory(new String[]{"Hydrogen", "Carbon", "Nitrogen", "Oxygen"});
+    void initWithRegularElementsListAndReactionsMap() {
+        var lab = new Laboratory(
+                new String[]{"Hydrogen", "Carbon", "Nitrogen", "Oxygen"},
+                new HashMap<>()
+        );
         assertEquals(0.0, lab.getQuantity("Hydrogen"));
         assertEquals(0.0, lab.getQuantity("Carbon"));
         assertEquals(0.0, lab.getQuantity("Nitrogen"));
@@ -24,12 +46,28 @@ public class LaboratoryTest {
 
     @Test
     void initWithDuplicateElementListThrowsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, () -> new Laboratory(new String[]{"Hydrogen", "Carbon", "Hydrogen"}));
+        assertThrows(IllegalArgumentException.class, () -> new Laboratory(
+                new String[]{"Hydrogen", "Carbon", "Hydrogen"},
+                new HashMap<String, Map<String, Double>>() {{
+                    put("Water", new HashMap<String, Double>() {{
+                        put("Oxygen", 1.0);
+                        put("Hydrogen", 2.0);
+                    }});
+                }}
+        ));
     }
 
     @Test
     void addKnownElement() {
-        var lab = new Laboratory(new String[]{"Hydrogen", "Carbon"});
+        var lab = new Laboratory(
+                new String[]{"Hydrogen", "Carbon"},
+                new HashMap<String, Map<String, Double>>() {{
+                    put("Water", new HashMap<String, Double>() {{
+                        put("Oxygen", 1.0);
+                        put("Hydrogen", 2.0);
+                    }});
+                }}
+        );
         assertEquals(0.0, lab.getQuantity("Hydrogen"));
         lab.add("Hydrogen", 1.0);
         assertEquals(1.0, lab.getQuantity("Hydrogen"));
@@ -37,7 +75,15 @@ public class LaboratoryTest {
 
     @Test
     void doubleAddKnownElement() {
-        var lab = new Laboratory(new String[]{"Hydrogen", "Carbon"});
+        var lab = new Laboratory(
+                new String[]{"Hydrogen", "Carbon"},
+                new HashMap<String, Map<String, Double>>() {{
+                    put("Water", new HashMap<String, Double>() {{
+                        put("Oxygen", 1.0);
+                        put("Hydrogen", 2.0);
+                    }});
+                }}
+        );
         assertEquals(0.0, lab.getQuantity("Hydrogen"));
         lab.add("Hydrogen", 1.0);
         lab.add("Hydrogen", 1.0);
@@ -46,19 +92,43 @@ public class LaboratoryTest {
 
     @Test
     void addUnknownElementThrowsIllegalArgumentException() {
-        var lab = new Laboratory(new String[]{"Hydrogen", "Carbon"});
+        var lab = new Laboratory(
+                new String[]{"Hydrogen", "Carbon"},
+                new HashMap<String, Map<String, Double>>() {{
+                    put("Water", new HashMap<String, Double>() {{
+                        put("Oxygen", 1.0);
+                        put("Hydrogen", 2.0);
+                    }});
+                }}
+        );
         assertThrows(IllegalArgumentException.class, () -> lab.add("Helium", 1.0));
     }
 
     @Test
     void addNegativeValueOfElementThrowsIllegalArgumentException() {
-        var lab = new Laboratory(new String[]{"Hydrogen", "Carbon"});
+        var lab = new Laboratory(
+                new String[]{"Hydrogen", "Carbon"},
+                new HashMap<String, Map<String, Double>>() {{
+                    put("Water", new HashMap<String, Double>() {{
+                        put("Oxygen", 1.0);
+                        put("Hydrogen", 2.0);
+                    }});
+                }}
+        );
         assertThrows(IllegalArgumentException.class, () -> lab.add("Hydrogen", -1.5));
     }
 
     @Test
     void addNullValueOfElementThrowsIllegalArgumentException() {
-        var lab = new Laboratory(new String[]{"Hydrogen", "Carbon"});
+        var lab = new Laboratory(
+                new String[]{"Hydrogen", "Carbon"},
+                new HashMap<String, Map<String, Double>>() {{
+                    put("Water", new HashMap<String, Double>() {{
+                        put("Oxygen", 1.0);
+                        put("Hydrogen", 2.0);
+                    }});
+                }}
+        );
         assertThrows(IllegalArgumentException.class, () -> lab.add("Hydrogen", 0));
     }
 

@@ -5,7 +5,7 @@ public class Laboratory {
 
     private Map<String, Double> elementsList = new HashMap();
 
-    public Laboratory(String[] elements) {
+    public Laboratory(String[] elements, Map<String, Map<String, Double>> reactions) {
         if(elements.length == 0) {
             throw new IllegalArgumentException("Elements list cannot be empty");
         }
