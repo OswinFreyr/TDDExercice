@@ -10,7 +10,14 @@ public class Laboratory {
     public Laboratory(String[] elements, Map<String, Map<String, Double>> reactions) {
         if(elements.length == 0 || reactions.isEmpty()) {
             throw new IllegalArgumentException("Elements or reactions list cannot be empty");
+        } else {
+            for(var r: reactions.keySet()) {
+                System.out.println(reactions.get(r));
+                if(reactions.get(r).isEmpty()) {
+                    throw new IllegalArgumentException("Reactions must contain at least one element");
 
+                }
+            }
         }
         for(var e : elements) {
             if(elementsList.containsKey(e)) {
