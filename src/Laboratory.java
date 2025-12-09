@@ -17,7 +17,9 @@ public class Laboratory {
 
             elementsList.put(e, 0.0);
         }
-        
+        for (var e : reactions.keySet()) {
+            reactionsList.put(e, reactions.get(e));
+        }
     }
 
     public double getQuantity(String element) {
@@ -27,7 +29,7 @@ public class Laboratory {
         return elementsList.get(element);
     }
 
-    public void add(String element, double quantity) {
+    public void addElement(String element, double quantity) {
         if(!elementsList.containsKey(element) || quantity <= 0) {
             throw new IllegalArgumentException("Unknown element:" + element + ") or negative quantity:" + quantity);
         }
