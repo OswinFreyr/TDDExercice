@@ -14,10 +14,10 @@ public class LaboratoryTest {
     @Test
     void initWithRegularElementsList() {
         var lab = new Laboratory(new String[]{"Hydrogen", "Carbon", "Nitrogen", "Oxygen"});
-        assertEquals(0, lab.getQuantity("Hydrogen"));
-        assertEquals(0, lab.getQuantity("Carbon"));
-        assertEquals(0, lab.getQuantity("Nitrogen"));
-        assertEquals(0, lab.getQuantity("Oxygen"));
+        assertEquals(0.0, lab.getQuantity("Hydrogen"));
+        assertEquals(0.0, lab.getQuantity("Carbon"));
+        assertEquals(0.0, lab.getQuantity("Nitrogen"));
+        assertEquals(0.0, lab.getQuantity("Oxygen"));
         assertThrows(IllegalArgumentException.class, () -> lab.getQuantity("Helium"));
         assertThrows(IllegalArgumentException.class, () -> lab.getQuantity("Argon"));
     }
@@ -29,10 +29,12 @@ public class LaboratoryTest {
 
     @Test
     void addKnownElement() {
-        var lab = new Laboratory(new String[]{"Hydrogen"});
-        assertEquals(0, lab.getQuantity("Hydrogen"));
-        double quantity = lab.add(1.0, "Hydrogen");
+        var lab = new Laboratory(new String[]{"Hydrogen", "Carbon"});
+        assertEquals(0.0, lab.getQuantity("Hydrogen"));
+        lab.add("Hydrogen", 1.0);
         assertEquals(1.0, lab.getQuantity("Hydrogen"));
     }
+
+    
 
 }
