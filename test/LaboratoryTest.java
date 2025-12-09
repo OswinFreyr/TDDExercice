@@ -155,4 +155,46 @@ public class LaboratoryTest {
         assertEquals(2.0, lab.getQuantity("Water"));
     }
 
+    @Test
+    void addUnknownProductThrowsIllegalArgumentException() {
+        var lab = new Laboratory(
+                new String[]{"Hydrogen", "Oxygen"},
+                new HashMap<String, Map<String, Double>>() {{
+                    put("Water", new HashMap<String, Double>() {{
+                        put("Oxygen", 1.0);
+                        put("Hydrogen", 2.0);
+                    }});
+                }}
+        );
+        assertThrows(IllegalArgumentException.class, () -> lab.add("Earth", 1.0));
+    }
+
+    @Test
+    void addNegativeValueOfProductThrowsIllegalArgumentException() {
+        var lab = new Laboratory(
+                new String[]{"Hydrogen", "Oxygen"},
+                new HashMap<String, Map<String, Double>>() {{
+                    put("Water", new HashMap<String, Double>() {{
+                        put("Oxygen", 1.0);
+                        put("Hydrogen", 2.0);
+                    }});
+                }}
+        );
+        assertThrows(IllegalArgumentException.class, () -> lab.add("Earth", -1.5));
+    }
+
+    @Test
+    void addNullValueOfProductThrowsIllegalArgumentException() {
+        var lab = new Laboratory(
+                new String[]{"Hydrogen", "Oxygen"},
+                new HashMap<String, Map<String, Double>>() {{
+                    put("Water", new HashMap<String, Double>() {{
+                        put("Oxygen", 1.0);
+                        put("Hydrogen", 2.0);
+                    }});
+                }}
+        );
+        assertThrows(IllegalArgumentException.class, () -> lab.add("Earth", 0));
+    }
+
 }
