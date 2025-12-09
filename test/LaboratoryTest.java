@@ -34,7 +34,12 @@ public class LaboratoryTest {
     void initWithRegularElementsListAndReactionsMap() {
         var lab = new Laboratory(
                 new String[]{"Hydrogen", "Carbon", "Nitrogen", "Oxygen"},
-                new HashMap<>()
+                new HashMap<String, Map<String, Double>>() {{
+                    put("Water", new HashMap<String, Double>() {{
+                        put("Oxygen", 1.0);
+                        put("Hydrogen", 2.0);
+                    }});
+                }}
         );
         assertEquals(0.0, lab.getQuantity("Hydrogen"));
         assertEquals(0.0, lab.getQuantity("Carbon"));

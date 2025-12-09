@@ -4,10 +4,11 @@ import java.util.Map;
 public class Laboratory {
 
     private Map<String, Double> elementsList = new HashMap();
+    Map<String, Map<String, Double>> reactionsList = new HashMap();
 
     public Laboratory(String[] elements, Map<String, Map<String, Double>> reactions) {
-        if(elements.length == 0) {
-            throw new IllegalArgumentException("Elements list cannot be empty");
+        if(elements.length == 0 || reactions.isEmpty()) {
+            throw new IllegalArgumentException("Elements or reactions list cannot be empty");
         }
         for(var e : elements) {
             if(elementsList.containsKey(e)) {
@@ -15,6 +16,9 @@ public class Laboratory {
             }
 
             elementsList.put(e, 0.0);
+        }
+        for (var e : reactions.keySet()) {
+            elementsList.put(e, reactions.get(e).get(e));
         }
     }
 
