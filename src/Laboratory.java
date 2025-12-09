@@ -5,6 +5,7 @@ public class Laboratory {
 
     private Map<String, Double> elementsList = new HashMap();
     Map<String, Map<String, Double>> reactionsList = new HashMap();
+    Map<String, Double> productsList = new HashMap();
 
     public Laboratory(String[] elements, Map<String, Map<String, Double>> reactions) {
         if(elements.length == 0 || reactions.isEmpty()) {
@@ -19,22 +20,36 @@ public class Laboratory {
         }
         for (var e : reactions.keySet()) {
             reactionsList.put(e, reactions.get(e));
+            productsList.put(e, 0.0);
         }
     }
 
     public double getQuantity(String element) {
-        if(!elementsList.containsKey(element)) {
-            throw new IllegalArgumentException("Element " + element + " not found");
+        if(elementsList.containsKey(element)) {
+            return elementsList.get(element);
         }
-        return elementsList.get(element);
+        else if (reactionsList.containsKey(element)) {
+            return productsList.get(element);
+        } else {
+            throw new IllegalArgumentException("Element or product " + element + " not found");
+        }
+
     }
 
     public void addElement(String element, double quantity) {
         if(!elementsList.containsKey(element) || quantity <= 0) {
-            throw new IllegalArgumentException("Unknown element:" + element + ") or negative quantity:" + quantity);
+            throw new IllegalArgumentException("Unknown element: " + element + " or negative quantity: " + quantity);
         }
         double addQuantity = quantity + elementsList.get(element);
         elementsList.replace(element, addQuantity);
+    }
+
+    public void addProduct(String element, double quantity) {
+        if(!productsList.containsKey(element) || quantity <= 0) {
+            throw new IllegalArgumentException("Unknown element: " + element + " or negative quantity: " + quantity);
+        }
+        double addQuantity = quantity + productsList.get(element);
+        productsList.replace(element, addQuantity);
     }
 
 }
