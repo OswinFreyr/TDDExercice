@@ -36,20 +36,17 @@ public class Laboratory {
 
     }
 
-    public void addElement(String element, double quantity) {
-        if(!elementsList.containsKey(element) || quantity <= 0) {
-            throw new IllegalArgumentException("Unknown element: " + element + " or negative quantity: " + quantity);
+    public void add(String element, double quantity) {
+        if(elementsList.containsKey(element) && quantity > 0) {
+            double addQuantity = quantity + elementsList.get(element);
+            elementsList.replace(element, addQuantity);
+        } else if(productsList.containsKey(element) && quantity > 0) {
+            double addQuantity = quantity + productsList.get(element);
+            productsList.replace(element, addQuantity);
+        } else {
+            throw new IllegalArgumentException("Unknown element or product: " + element + " or negative quantity: " + quantity);
         }
-        double addQuantity = quantity + elementsList.get(element);
-        elementsList.replace(element, addQuantity);
-    }
 
-    public void addProduct(String element, double quantity) {
-        if(!productsList.containsKey(element) || quantity <= 0) {
-            throw new IllegalArgumentException("Unknown element: " + element + " or negative quantity: " + quantity);
-        }
-        double addQuantity = quantity + productsList.get(element);
-        productsList.replace(element, addQuantity);
     }
 
 }

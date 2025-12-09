@@ -75,7 +75,7 @@ public class LaboratoryTest {
                 }}
         );
         assertEquals(0.0, lab.getQuantity("Hydrogen"));
-        lab.addElement("Hydrogen", 1.0);
+        lab.add("Hydrogen", 1.0);
         assertEquals(1.0, lab.getQuantity("Hydrogen"));
     }
 
@@ -91,8 +91,8 @@ public class LaboratoryTest {
                 }}
         );
         assertEquals(0.0, lab.getQuantity("Hydrogen"));
-        lab.addElement("Hydrogen", 1.0);
-        lab.addElement("Hydrogen", 1.0);
+        lab.add("Hydrogen", 1.0);
+        lab.add("Hydrogen", 1.0);
         assertEquals(2.0, lab.getQuantity("Hydrogen"));
     }
 
@@ -107,7 +107,7 @@ public class LaboratoryTest {
                     }});
                 }}
         );
-        assertThrows(IllegalArgumentException.class, () -> lab.addElement("Helium", 1.0));
+        assertThrows(IllegalArgumentException.class, () -> lab.add("Helium", 1.0));
     }
 
     @Test
@@ -121,7 +121,7 @@ public class LaboratoryTest {
                     }});
                 }}
         );
-        assertThrows(IllegalArgumentException.class, () -> lab.addElement("Hydrogen", -1.5));
+        assertThrows(IllegalArgumentException.class, () -> lab.add("Hydrogen", -1.5));
     }
 
     @Test
@@ -135,7 +135,7 @@ public class LaboratoryTest {
                     }});
                 }}
         );
-        assertThrows(IllegalArgumentException.class, () -> lab.addElement("Hydrogen", 0));
+        assertThrows(IllegalArgumentException.class, () -> lab.add("Hydrogen", 0));
     }
 
     @Test
@@ -150,8 +150,8 @@ public class LaboratoryTest {
                 }}
         );
         assertEquals(0.0, lab.getQuantity("Water"));
-        lab.addProduct("Water", 1.0);
-        lab.addProduct("Water", 1.0);
+        lab.add("Water", 1.0);
+        lab.add("Water", 1.0);
         assertEquals(2.0, lab.getQuantity("Water"));
     }
 
