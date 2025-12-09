@@ -137,6 +137,21 @@ public class LaboratoryTest {
         assertThrows(IllegalArgumentException.class, () -> lab.addElement("Hydrogen", 0));
     }
 
-    
+    @Test
+    void doubleAddKnownProduct() {
+        var lab = new Laboratory(
+                new String[]{"Hydrogen", "Oxygen"},
+                new HashMap<String, Map<String, Double>>() {{
+                    put("Water", new HashMap<String, Double>() {{
+                        put("Oxygen", 1.0);
+                        put("Hydrogen", 2.0);
+                    }});
+                }}
+        );
+        assertEquals(0.0, lab.getQuantity("Water"));
+        lab.addElement("Water", 1.0);
+        lab.addElement("Water", 1.0);
+        assertEquals(2.0, lab.getQuantity("Water"));
+    }
 
 }
