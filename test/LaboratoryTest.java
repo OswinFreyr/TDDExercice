@@ -24,4 +24,9 @@ public class LaboratoryTest {
         assertThrows(IllegalArgumentException.class, () -> lab.getQuantity("Argon"));
     }
 
+    @Test
+    void initWithDuplicateElementListThrowsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new Laboratory(new String[]{"Hydrogen", "Carbon", "Hydrogen"}));
+    }
+
 }

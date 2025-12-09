@@ -10,6 +10,7 @@ public class Laboratory {
             throw new IllegalArgumentException("Elements list cannot be empty");
         }
         for(var e : elements) {
+            
             elementsList.add(e);
         }
     }
