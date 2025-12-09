@@ -35,6 +35,13 @@ public class LaboratoryTest {
         assertEquals(1.0, lab.getQuantity("Hydrogen"));
     }
 
-    
+    @Test
+    void doubleAddKnownElement() {
+        var lab = new Laboratory(new String[]{"Hydrogen", "Carbon"});
+        assertEquals(0.0, lab.getQuantity("Hydrogen"));
+        lab.add("Hydrogen", 1.0);
+        lab.add("Hydrogen", 1.0);
+        assertEquals(2.0, lab.getQuantity("Hydrogen"));
+    }
 
 }
