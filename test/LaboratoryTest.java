@@ -13,9 +13,7 @@ public class LaboratoryTest {
 
     @Test
     void initWithRegularElementsList() {
-        var lab = new Laboratory(new String[]{
-                "Hydrogen", "Carbon", "Nitrogen", "Oxygen"
-        });
+        var lab = new Laboratory(new String[]{"Hydrogen", "Carbon", "Nitrogen", "Oxygen"});
         assertEquals(0, lab.getQuantity("Hydrogen"));
         assertEquals(0, lab.getQuantity("Carbon"));
         assertEquals(0, lab.getQuantity("Nitrogen"));
@@ -27,6 +25,14 @@ public class LaboratoryTest {
     @Test
     void initWithDuplicateElementListThrowsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> new Laboratory(new String[]{"Hydrogen", "Carbon", "Hydrogen"}));
+    }
+
+    @Test
+    void addKnownElement() {
+        var lab = new Laboratory(new String[]{"Hydrogen"});
+        assertEquals(0, lab.getQuantity("Hydrogen"));
+        double quantity = lab.add(1.0, "Hydrogen");
+        assertEquals(1.0, lab.getQuantity("Hydrogen"));
     }
 
 }
