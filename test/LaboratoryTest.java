@@ -60,6 +60,20 @@ public class LaboratoryTest {
                     }});
                 }}
         ));
+        assertDoesNotThrow( () -> new Laboratory(
+                new String[]{"Hydrogen", "Oxygen"},
+                new HashMap<String, Map<String, Double>>() {{
+                    put("Water", new HashMap<String, Double>() {{
+                        put("Hydrogen", 2.0);
+                        put("Oxygen", 1.0);
+                    }});
+                    put("Earth", new HashMap<String, Double>() {{
+                        put("Water", 2.0);
+                        put("Oxygen", 1.0);
+                    }});
+                }}
+        ));
+
     }
 
     @Test

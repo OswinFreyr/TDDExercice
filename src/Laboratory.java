@@ -20,21 +20,20 @@ public class Laboratory {
             }
 
             for(var r: reactions.keySet()) {
-                System.out.println("reac " + r);
-                System.out.println("ingr " + reactions.get(r));
+//                System.out.println("reac " + r);
+//                System.out.println("ingr " + reactions.get(r));
                 if(reactions.get(r).isEmpty()) {
                     throw new IllegalArgumentException("Reactions must contain at least one element");
                 } else {
                     for(var e: reactions.get(r).keySet()) {
-                        System.out.println("value " + e + " " + reactions.get(r).get(e));
+//                        System.out.println("value " + e + " " + reactions.get(r).get(e));
                         if(reactions.get(r).get(e) <= 1.0 && reactions.get(r).size() == 1.0) {
                             throw new IllegalArgumentException("Reactions of same element must be with more than one");
                         } else if(reactions.get(r).get(e) <= 0.0) {
                             throw new IllegalArgumentException("Reactions elements must be greater than zero");
                         }
-
                         if(!elementsList.containsKey(e)) {
-                            throw new IllegalArgumentException("Element " + e + " does not exist");
+                            throw new IllegalArgumentException("Element or product " + e + " does not exist");
                         }
                     }
                 }
