@@ -10,7 +10,9 @@ public class Laboratory {
             throw new IllegalArgumentException("Elements list cannot be empty");
         }
         for(var e : elements) {
-            
+            if(elementsList.contains(e)) {
+                throw new IllegalArgumentException("Duplicate element: " + e);
+            }
             elementsList.add(e);
         }
     }
