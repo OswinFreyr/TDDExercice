@@ -275,7 +275,7 @@ public class LaboratoryTest {
                     }});
                 }}
         );
-        lab.add("Hydrogen", 2.0);
+        lab.add("Hydrogen", 4.0);
         lab.add("Oxygen", 2.0);
         assertEquals(2.0, lab.make("Water", 2.0));
     }
@@ -320,6 +320,29 @@ public class LaboratoryTest {
         lab.make("Water", 1.0);
         assertEquals(0.0, lab.getQuantity("Hydrogen"));
         assertEquals(1.0, lab.getQuantity("Oxygen"));
+    }
+
+    @Test
+    void assertMakeMaxProductWhenOvershootValue() {
+        var lab = new Laboratory(
+                new String[]{"Hydrogen", "Carbon", "Oxygen"},
+                new HashMap<String, Map<String, Double>>() {{
+                    put("Earth", new HashMap<String, Double>() {{
+                        put("Water", 2.0);
+                        put("Oxygen", 1.0);
+                    }});
+                    put("Water", new HashMap<String, Double>() {{
+                        put("Oxygen", 1.0);
+                        put("Hydrogen", 2.0);
+                    }});
+                }}
+        );
+        lab.add("Hydrogen", 5.0);
+        lab.add("Oxygen", 2.0);
+        lab.make("Water", 3.0);
+        assertEquals(0.0, lab.getQuantity("Oxygen"));
+        assertEquals(1.0, lab.getQuantity("Hydrogen"));
+        assertEquals(2.0, lab.getQuantity("Water"));
     }
 
 }
