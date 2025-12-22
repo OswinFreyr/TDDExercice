@@ -70,18 +70,21 @@ public class Laboratory {
     }
 
     public double make(String product, double quantity) {
-        productsList.replace(product, quantity);
 //        System.out.println("Product " + reactionsList.get(product).keySet());
 //        System.out.println("El entree " + elementsList);
         Map<String, Double> makingReaction = reactionsList.get(product);
         for(var e: reactionsList.get(product).keySet()) {
-//            System.out.println("e: " + e + " v: " + reactionsList.get(product).get(e));
-            makingReaction.replace(e, quantity*reactionsList.get(product).get(e));
-            double newElementQuantity = elementsList.get(e) - makingReaction.get(e);
-            elementsList.replace(e, newElementQuantity);
-
-            
+//            System.out.println("eRl: " + e + " v: " + reactionsList.get(product).get(e));
+//            System.out.println("eMr: " + e + " v: " + makingReaction.get(e));
+            if(makingReaction.get(e) > getQuantity(e)) {
+                throw new IllegalArgumentException("Not enough product " + e);
+            } else {
+                makingReaction.replace(e, quantity*reactionsList.get(product).get(e));
+                double newElementQuantity = elementsList.get(e) - makingReaction.get(e);
+                elementsList.replace(e, newElementQuantity);
+            }
         }
+        productsList.replace(product, quantity);
 //        System.out.println("mR " + makingReaction);
 //        System.out.println("El sortie " + elementsList);
         return productsList.get(product);
