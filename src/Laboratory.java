@@ -70,7 +70,8 @@ public class Laboratory {
     }
 
     public double make(String product, double quantity) {
-        return 1;
+        productsList.replace(product, quantity);
+        return productsList.get(product);
     }
 
 }
