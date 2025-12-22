@@ -70,22 +70,34 @@ public class Laboratory {
     }
 
     public double make(String product, double quantity) {
-//        System.out.println("Product " + reactionsList.get(product).keySet());
+//        System.out.println("reactions " + reactionsList.get(product));
 //        System.out.println("El entree " + elementsList);
-        Map<String, Double> makingReaction = reactionsList.get(product);
+        Map<String, Double> makingReaction = new HashMap<>(reactionsList.get(product));
+        double newQuantity = 1;
         for(var e: reactionsList.get(product).keySet()) {
+            newQuantity = 1;
             makingReaction.replace(e, quantity*reactionsList.get(product).get(e));
 //            System.out.println("eRl: " + e + " v: " + reactionsList.get(product).get(e));
 //            System.out.println("eMr: " + e + " v: " + makingReaction.get(e));
-            if(makingReaction.get(e) > getQuantity(e)) {
+//            System.out.println("eQ: " + e + " v: " + getQuantity(e));
+            if(makingReaction.get(e) > getQuantity(e) && reactionsList.get(product).get(e) > getQuantity(e)) {
                 throw new IllegalArgumentException("Not enough product " + e);
+            } else if(makingReaction.get(e) > getQuantity(e) && reactionsList.get(product).get(e) < getQuantity(e)) {
+                while (reactionsList.get(product).get(e)*newQuantity < getQuantity(e) && reactionsList.get(product).get(e)*(newQuantity+1) <= getQuantity(e)) {
+                    newQuantity++;
+                }
+                double newElementQuantity = elementsList.get(e) - (newQuantity*reactionsList.get(product).get(e));
+                elementsList.replace(e, newElementQuantity);
             } else {
-
                 double newElementQuantity = elementsList.get(e) - makingReaction.get(e);
                 elementsList.replace(e, newElementQuantity);
             }
         }
-        productsList.replace(product, quantity);
+        if(newQuantity > 1) {
+            productsList.replace(product, newQuantity);
+        } else {
+            productsList.replace(product, quantity);
+        }
 //        System.out.println("mR " + makingReaction);
 //        System.out.println("El sortie " + elementsList);
         return productsList.get(product);
