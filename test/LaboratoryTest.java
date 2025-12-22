@@ -386,4 +386,27 @@ public class LaboratoryTest {
         assertThrows(IllegalArgumentException.class, () -> lab.make("Water", -1.0));
     }
 
+    @Test
+    void assertMakeProductFromOtherNonMakeProduct() {
+        var lab = new Laboratory(
+                new String[]{"Hydrogen", "Carbon", "Oxygen"},
+                new HashMap<String, Map<String, Double>>() {{
+                    put("Earth", new HashMap<String, Double>() {{
+                        put("Water", 2.0);
+                        put("Oxygen", 1.0);
+                    }});
+                    put("Water", new HashMap<String, Double>() {{
+                        put("Oxygen", 1.0);
+                        put("Hydrogen", 2.0);
+                    }});
+                }}
+        );
+        lab.add("Oxygen", 2.0);
+        lab.add("Water", 2.0);
+        lab.make("Earth", 2.0);
+        assertEquals(1.0, lab.getQuantity("Oxygen"));
+        assertEquals(0.0, lab.getQuantity("Water"));
+        assertEquals(1.0, lab.getQuantity("Earth"));
+    }
+
 }

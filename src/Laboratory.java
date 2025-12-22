@@ -90,6 +90,7 @@ public class Laboratory {
                     double newElementQuantity = elementsList.get(e) - (newQuantity*reactionsList.get(product).get(e));
                     elementsList.replace(e, newElementQuantity);
                 } else {
+
                     double newElementQuantity = elementsList.get(e) - makingReaction.get(e);
                     elementsList.replace(e, newElementQuantity);
                 }
