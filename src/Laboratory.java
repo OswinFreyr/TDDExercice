@@ -70,7 +70,7 @@ public class Laboratory {
     }
 
     public double make(String product, double quantity) {
-//        if(productsList.containsKey(product)) {
+        if(productsList.containsKey(product)) {
 //            System.out.println("reactions " + reactionsList.get(product));
 //            System.out.println("El entree " + elementsList);
             Map<String, Double> makingReaction = new HashMap<>(reactionsList.get(product));
@@ -102,9 +102,9 @@ public class Laboratory {
 //        System.out.println("mR " + makingReaction);
 //        System.out.println("El sortie " + elementsList);
             return productsList.get(product);
-//        } else {
-//            throw new IllegalArgumentException("Unknown product: " + product);
-//        }
+        } else {
+            throw new IllegalArgumentException("Unknown product: " + product);
+        }
 
     }
 
