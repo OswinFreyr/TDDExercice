@@ -71,6 +71,18 @@ public class Laboratory {
 
     public double make(String product, double quantity) {
         productsList.replace(product, quantity);
+//        System.out.println("Product " + reactionsList.get(product).keySet());
+//        System.out.println("El entree " + elementsList);
+        Map<String, Double> makingReaction = reactionsList.get(product);
+        for(var e: reactionsList.get(product).keySet()) {
+//            System.out.println("e: " + e + " v: " + reactionsList.get(product).get(e));
+            makingReaction.replace(e, quantity*reactionsList.get(product).get(e));
+            double newElementQuantity = elementsList.get(e) - makingReaction.get(e);
+            elementsList.replace(e, newElementQuantity);
+                       
+        }
+//        System.out.println("mR " + makingReaction);
+//        System.out.println("El sortie " + elementsList);
         return productsList.get(product);
     }
 
