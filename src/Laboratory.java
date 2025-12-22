@@ -69,4 +69,8 @@ public class Laboratory {
 
     }
 
+//    public double make(String product, double quantity) {
+//        return 1;
+//    }
+
 }

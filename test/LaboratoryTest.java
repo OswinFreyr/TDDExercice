@@ -63,14 +63,15 @@ public class LaboratoryTest {
         assertDoesNotThrow( () -> new Laboratory(
                 new String[]{"Hydrogen", "Oxygen"},
                 new HashMap<String, Map<String, Double>>() {{
-                    put("Water", new HashMap<String, Double>() {{
-                        put("Hydrogen", 2.0);
-                        put("Oxygen", 1.0);
-                    }});
                     put("Earth", new HashMap<String, Double>() {{
                         put("Water", 2.0);
                         put("Oxygen", 1.0);
                     }});
+                    put("Water", new HashMap<String, Double>() {{
+                        put("Hydrogen", 2.0);
+                        put("Oxygen", 1.0);
+                    }});
+
                 }}
         ));
 
@@ -241,6 +242,22 @@ public class LaboratoryTest {
                 }}
         );
         assertThrows(IllegalArgumentException.class, () -> lab.add("Earth", 0));
+    }
+
+    @Test
+    void makeKnownProduct() {
+        var lab = new Laboratory(
+                new String[]{"Hydrogen", "Carbon", "Oxygen"},
+                new HashMap<String, Map<String, Double>>() {{
+                    put("Water", new HashMap<String, Double>() {{
+                        put("Oxygen", 1.0);
+                        put("Hydrogen", 2.0);
+                    }});
+                }}
+        );
+        lab.add("Hydrogen", 2.0);
+        lab.add("Oxygen", 2.0);
+        assertEquals(1.0, lab.make("Water", 1.0));
     }
 
 }
