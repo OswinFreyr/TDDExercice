@@ -70,7 +70,7 @@ public class Laboratory {
     }
 
     public double make(String product, double quantity) {
-        if(productsList.containsKey(product)) {
+        if(productsList.containsKey(product) && quantity > 0) {
 //            System.out.println("reactions " + reactionsList.get(product));
 //            System.out.println("El entree " + elementsList);
             Map<String, Double> makingReaction = new HashMap<>(reactionsList.get(product));
