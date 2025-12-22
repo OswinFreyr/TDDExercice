@@ -280,25 +280,25 @@ public class LaboratoryTest {
         assertEquals(2.0, lab.make("Water", 2.0));
     }
 
-//    @Test
-//    void assertHaveElementForMake() {
-//        var lab = new Laboratory(
-//                new String[]{"Hydrogen", "Carbon", "Oxygen"},
-//                new HashMap<String, Map<String, Double>>() {{
-//                    put("Earth", new HashMap<String, Double>() {{
-//                        put("Water", 2.0);
-//                        put("Oxygen", 1.0);
-//                    }});
-//                    put("Water", new HashMap<String, Double>() {{
-//                        put("Oxygen", 1.0);
-//                        put("Hydrogen", 2.0);
-//                    }});
-//                }}
-//        );
-//        lab.add("Hydrogen", 1.0);
-//        lab.add("Oxygen", 2.0);
-//        assertThrows(IllegalArgumentException.class, () -> lab.make("Water", 1.0));
-//    }
+    @Test
+    void assertHaveElementForMake() {
+        var lab = new Laboratory(
+                new String[]{"Hydrogen", "Carbon", "Oxygen"},
+                new HashMap<String, Map<String, Double>>() {{
+                    put("Earth", new HashMap<String, Double>() {{
+                        put("Water", 2.0);
+                        put("Oxygen", 1.0);
+                    }});
+                    put("Water", new HashMap<String, Double>() {{
+                        put("Oxygen", 1.0);
+                        put("Hydrogen", 2.0);
+                    }});
+                }}
+        );
+        lab.add("Hydrogen", 1.0);
+        lab.add("Oxygen", 2.0);
+        assertThrows(IllegalArgumentException.class, () -> lab.make("Water", 1.0));
+    }
 
     @Test
     void assertUseOfElementForMake() {

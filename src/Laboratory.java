@@ -79,7 +79,8 @@ public class Laboratory {
             makingReaction.replace(e, quantity*reactionsList.get(product).get(e));
             double newElementQuantity = elementsList.get(e) - makingReaction.get(e);
             elementsList.replace(e, newElementQuantity);
-                       
+
+            
         }
 //        System.out.println("mR " + makingReaction);
 //        System.out.println("El sortie " + elementsList);
