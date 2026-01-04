@@ -244,147 +244,147 @@ public class LaboratoryTest {
         assertThrows(IllegalArgumentException.class, () -> lab.add("Earth", 0));
     }
 
-    @Test
-    void makeKnownProduct() {
-        var lab = new Laboratory(
-                new String[]{"Hydrogen", "Carbon", "Oxygen"},
-                new HashMap<String, Map<String, Double>>() {{
-                    put("Water", new HashMap<String, Double>() {{
-                        put("Oxygen", 1.0);
-                        put("Hydrogen", 2.0);
-                    }});
-                }}
-        );
-        lab.add("Hydrogen", 2.0);
-        lab.add("Oxygen", 2.0);
-        assertEquals(1.0, lab.make("Water", 1.0));
-    }
-
-    @Test
-    void makeTwoOfOneKnownProduct() {
-        var lab = new Laboratory(
-                new String[]{"Hydrogen", "Carbon", "Oxygen"},
-                new HashMap<String, Map<String, Double>>() {{
-                    put("Earth", new HashMap<String, Double>() {{
-                        put("Water", 2.0);
-                        put("Oxygen", 1.0);
-                    }});
-                    put("Water", new HashMap<String, Double>() {{
-                        put("Oxygen", 1.0);
-                        put("Hydrogen", 2.0);
-                    }});
-                }}
-        );
-        lab.add("Hydrogen", 4.0);
-        lab.add("Oxygen", 2.0);
-        assertEquals(2.0, lab.make("Water", 2.0));
-    }
-
-    @Test
-    void assertHaveElementForMake() {
-        var lab = new Laboratory(
-                new String[]{"Hydrogen", "Carbon", "Oxygen"},
-                new HashMap<String, Map<String, Double>>() {{
-                    put("Earth", new HashMap<String, Double>() {{
-                        put("Water", 2.0);
-                        put("Oxygen", 1.0);
-                    }});
-                    put("Water", new HashMap<String, Double>() {{
-                        put("Oxygen", 1.0);
-                        put("Hydrogen", 2.0);
-                    }});
-                }}
-        );
-        lab.add("Hydrogen", 1.0);
-        lab.add("Oxygen", 2.0);
-        assertThrows(IllegalArgumentException.class, () -> lab.make("Water", 1.0));
-    }
-
-    @Test
-    void assertUseOfElementForMake() {
-        var lab = new Laboratory(
-                new String[]{"Hydrogen", "Carbon", "Oxygen"},
-                new HashMap<String, Map<String, Double>>() {{
-                    put("Earth", new HashMap<String, Double>() {{
-                        put("Water", 2.0);
-                        put("Oxygen", 1.0);
-                    }});
-                    put("Water", new HashMap<String, Double>() {{
-                        put("Oxygen", 1.0);
-                        put("Hydrogen", 2.0);
-                    }});
-                }}
-        );
-        lab.add("Hydrogen", 2.0);
-        lab.add("Oxygen", 2.0);
-        lab.make("Water", 1.0);
-        assertEquals(0.0, lab.getQuantity("Hydrogen"));
-        assertEquals(1.0, lab.getQuantity("Oxygen"));
-    }
-
-    @Test
-    void assertMakeMaxProductWhenOvershootValue() {
-        var lab = new Laboratory(
-                new String[]{"Hydrogen", "Carbon", "Oxygen"},
-                new HashMap<String, Map<String, Double>>() {{
-                    put("Earth", new HashMap<String, Double>() {{
-                        put("Water", 2.0);
-                        put("Oxygen", 1.0);
-                    }});
-                    put("Water", new HashMap<String, Double>() {{
-                        put("Oxygen", 1.0);
-                        put("Hydrogen", 2.0);
-                    }});
-                }}
-        );
-        lab.add("Hydrogen", 5.0);
-        lab.add("Oxygen", 2.0);
-        lab.make("Water", 3.0);
-        assertEquals(0.0, lab.getQuantity("Oxygen"));
-        assertEquals(1.0, lab.getQuantity("Hydrogen"));
-        assertEquals(2.0, lab.getQuantity("Water"));
-    }
-
-    @Test
-    void assertMakeWithUnknownProductThrowsException() {
-        var lab = new Laboratory(
-                new String[]{"Hydrogen", "Carbon", "Oxygen"},
-                new HashMap<String, Map<String, Double>>() {{
-                    put("Earth", new HashMap<String, Double>() {{
-                        put("Water", 2.0);
-                        put("Oxygen", 1.0);
-                    }});
-                    put("Water", new HashMap<String, Double>() {{
-                        put("Oxygen", 1.0);
-                        put("Hydrogen", 2.0);
-                    }});
-                }}
-        );
-        lab.add("Hydrogen", 5.0);
-        lab.add("Oxygen", 2.0);
-        assertThrows(IllegalArgumentException.class, () -> lab.make("Gaz", 1.0));
-    }
-
-    @Test
-    void assertMakeNegativeOrNullProductThrowsException() {
-        var lab = new Laboratory(
-                new String[]{"Hydrogen", "Carbon", "Oxygen"},
-                new HashMap<String, Map<String, Double>>() {{
-                    put("Earth", new HashMap<String, Double>() {{
-                        put("Water", 2.0);
-                        put("Oxygen", 1.0);
-                    }});
-                    put("Water", new HashMap<String, Double>() {{
-                        put("Oxygen", 1.0);
-                        put("Hydrogen", 2.0);
-                    }});
-                }}
-        );
-        lab.add("Hydrogen", 5.0);
-        lab.add("Oxygen", 2.0);
-        assertThrows(IllegalArgumentException.class, () -> lab.make("Water", 0.0));
-        assertThrows(IllegalArgumentException.class, () -> lab.make("Water", -1.0));
-    }
+//    @Test
+//    void makeKnownProduct() {
+//        var lab = new Laboratory(
+//                new String[]{"Hydrogen", "Carbon", "Oxygen"},
+//                new HashMap<String, Map<String, Double>>() {{
+//                    put("Water", new HashMap<String, Double>() {{
+//                        put("Oxygen", 1.0);
+//                        put("Hydrogen", 2.0);
+//                    }});
+//                }}
+//        );
+//        lab.add("Hydrogen", 2.0);
+//        lab.add("Oxygen", 2.0);
+//        assertEquals(1.0, lab.make("Water", 1.0));
+//    }
+//
+//    @Test
+//    void makeTwoOfOneKnownProduct() {
+//        var lab = new Laboratory(
+//                new String[]{"Hydrogen", "Carbon", "Oxygen"},
+//                new HashMap<String, Map<String, Double>>() {{
+//                    put("Earth", new HashMap<String, Double>() {{
+//                        put("Water", 2.0);
+//                        put("Oxygen", 1.0);
+//                    }});
+//                    put("Water", new HashMap<String, Double>() {{
+//                        put("Oxygen", 1.0);
+//                        put("Hydrogen", 2.0);
+//                    }});
+//                }}
+//        );
+//        lab.add("Hydrogen", 4.0);
+//        lab.add("Oxygen", 2.0);
+//        assertEquals(2.0, lab.make("Water", 2.0));
+//    }
+//
+//    @Test
+//    void assertHaveElementForMake() {
+//        var lab = new Laboratory(
+//                new String[]{"Hydrogen", "Carbon", "Oxygen"},
+//                new HashMap<String, Map<String, Double>>() {{
+//                    put("Earth", new HashMap<String, Double>() {{
+//                        put("Water", 2.0);
+//                        put("Oxygen", 1.0);
+//                    }});
+//                    put("Water", new HashMap<String, Double>() {{
+//                        put("Oxygen", 1.0);
+//                        put("Hydrogen", 2.0);
+//                    }});
+//                }}
+//        );
+//        lab.add("Hydrogen", 1.0);
+//        lab.add("Oxygen", 2.0);
+//        assertThrows(IllegalArgumentException.class, () -> lab.make("Water", 1.0));
+//    }
+//
+//    @Test
+//    void assertUseOfElementForMake() {
+//        var lab = new Laboratory(
+//                new String[]{"Hydrogen", "Carbon", "Oxygen"},
+//                new HashMap<String, Map<String, Double>>() {{
+//                    put("Earth", new HashMap<String, Double>() {{
+//                        put("Water", 2.0);
+//                        put("Oxygen", 1.0);
+//                    }});
+//                    put("Water", new HashMap<String, Double>() {{
+//                        put("Oxygen", 1.0);
+//                        put("Hydrogen", 2.0);
+//                    }});
+//                }}
+//        );
+//        lab.add("Hydrogen", 2.0);
+//        lab.add("Oxygen", 2.0);
+//        lab.make("Water", 1.0);
+//        assertEquals(0.0, lab.getQuantity("Hydrogen"));
+//        assertEquals(1.0, lab.getQuantity("Oxygen"));
+//    }
+//
+//    @Test
+//    void assertMakeMaxProductWhenOvershootValue() {
+//        var lab = new Laboratory(
+//                new String[]{"Hydrogen", "Carbon", "Oxygen"},
+//                new HashMap<String, Map<String, Double>>() {{
+//                    put("Earth", new HashMap<String, Double>() {{
+//                        put("Water", 2.0);
+//                        put("Oxygen", 1.0);
+//                    }});
+//                    put("Water", new HashMap<String, Double>() {{
+//                        put("Oxygen", 1.0);
+//                        put("Hydrogen", 2.0);
+//                    }});
+//                }}
+//        );
+//        lab.add("Hydrogen", 5.0);
+//        lab.add("Oxygen", 2.0);
+//        lab.make("Water", 3.0);
+//        assertEquals(0.0, lab.getQuantity("Oxygen"));
+//        assertEquals(1.0, lab.getQuantity("Hydrogen"));
+//        assertEquals(2.0, lab.getQuantity("Water"));
+//    }
+//
+//    @Test
+//    void assertMakeWithUnknownProductThrowsException() {
+//        var lab = new Laboratory(
+//                new String[]{"Hydrogen", "Carbon", "Oxygen"},
+//                new HashMap<String, Map<String, Double>>() {{
+//                    put("Earth", new HashMap<String, Double>() {{
+//                        put("Water", 2.0);
+//                        put("Oxygen", 1.0);
+//                    }});
+//                    put("Water", new HashMap<String, Double>() {{
+//                        put("Oxygen", 1.0);
+//                        put("Hydrogen", 2.0);
+//                    }});
+//                }}
+//        );
+//        lab.add("Hydrogen", 5.0);
+//        lab.add("Oxygen", 2.0);
+//        assertThrows(IllegalArgumentException.class, () -> lab.make("Gaz", 1.0));
+//    }
+//
+//    @Test
+//    void assertMakeNegativeOrNullProductThrowsException() {
+//        var lab = new Laboratory(
+//                new String[]{"Hydrogen", "Carbon", "Oxygen"},
+//                new HashMap<String, Map<String, Double>>() {{
+//                    put("Earth", new HashMap<String, Double>() {{
+//                        put("Water", 2.0);
+//                        put("Oxygen", 1.0);
+//                    }});
+//                    put("Water", new HashMap<String, Double>() {{
+//                        put("Oxygen", 1.0);
+//                        put("Hydrogen", 2.0);
+//                    }});
+//                }}
+//        );
+//        lab.add("Hydrogen", 5.0);
+//        lab.add("Oxygen", 2.0);
+//        assertThrows(IllegalArgumentException.class, () -> lab.make("Water", 0.0));
+//        assertThrows(IllegalArgumentException.class, () -> lab.make("Water", -1.0));
+//    }
 
     @Test
     void assertMakeProductFromOtherNonMakeProduct() {

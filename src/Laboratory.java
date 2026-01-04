@@ -71,31 +71,51 @@ public class Laboratory {
 
     public double make(String product, double quantity) {
         if(productsList.containsKey(product) && quantity > 0) {
-//            System.out.println("reactions " + reactionsList.get(product));
+            System.out.println("reactions " + reactionsList.get(product));
 //            System.out.println("El entree " + elementsList);
             Map<String, Double> makingReaction = new HashMap<>(reactionsList.get(product));
             double newQuantity = 1;
             for(var e: reactionsList.get(product).keySet()) {
                 newQuantity = 1;
                 makingReaction.replace(e, quantity*reactionsList.get(product).get(e));
-//            System.out.println("eRl: " + e + " v: " + reactionsList.get(product).get(e));
+            System.out.println("eRl: " + e + " v: " + reactionsList.get(product).get(e));
 //            System.out.println("eMr: " + e + " v: " + makingReaction.get(e));
-//            System.out.println("eQ: " + e + " v: " + getQuantity(e));
+            System.out.println("eQ: " + e + " v: " + getQuantity(e));
+                double diff = reactionsList.get(product).get(e) - getQuantity(e);
+                System.out.println("diff: " + diff);
+                boolean data = Math.abs(reactionsList.get(product).get(e) - getQuantity(e)) < 0.0001;
+                boolean data2 = Math.abs(reactionsList.get(product).get(e)*(newQuantity+1) - getQuantity(e)) < 0.0001;
+                System.out.println("data " + e + ": " + data);
+                System.out.println("data2 " + e + ": " + data2);
                 if(makingReaction.get(e) > getQuantity(e) && reactionsList.get(product).get(e) > getQuantity(e)) {
                     throw new IllegalArgumentException("Not enough product " + e);
-                } else if(makingReaction.get(e) > getQuantity(e) && reactionsList.get(product).get(e) < getQuantity(e)) {
-                    while (reactionsList.get(product).get(e)*newQuantity < getQuantity(e) && reactionsList.get(product).get(e)*(newQuantity+1) <= getQuantity(e)) {
+                } else if(makingReaction.get(e) > getQuantity(e) && /*Math.abs(*/reactionsList.get(product).get(e) < getQuantity(e)/*) < 0.0001*/) {
+                    System.out.println("coucou");
+                    while (reactionsList.get(product).get(e)*newQuantity < getQuantity(e) && Math.abs(reactionsList.get(product).get(e)*(newQuantity+1) - getQuantity(e)) < 0.0001) {
                         newQuantity++;
                     }
-                    double newElementQuantity = elementsList.get(e) - (newQuantity*reactionsList.get(product).get(e));
-                    elementsList.replace(e, newElementQuantity);
+                    if(elementsList.containsKey(e)) {
+                        double newElementQuantity = elementsList.get(e) - (newQuantity*reactionsList.get(product).get(e));
+                        elementsList.replace(e, newElementQuantity);
+                    } else if(productsList.containsKey(e)) {
+                        double newElementQuantity = productsList.get(e) - (newQuantity*reactionsList.get(product).get(e));
+                        productsList.replace(e, newElementQuantity);
+                    }
                 } else {
+                    System.out.println("currentE " + e);
+                    if(elementsList.containsKey(e)) {
+                        double newElementQuantity = elementsList.get(e) - makingReaction.get(e);
+                        System.out.println("newElementQuantity " + newElementQuantity);
+                        elementsList.replace(e, newElementQuantity);
+                    } else if(productsList.containsKey(e)) {
+                        double newElementQuantity = productsList.get(e) - makingReaction.get(e);
+                        System.out.println("newElementQuantity " + newElementQuantity);
+                        productsList.replace(e, newElementQuantity);
+                    }
 
-                    double newElementQuantity = elementsList.get(e) - makingReaction.get(e);
-                    elementsList.replace(e, newElementQuantity);
                 }
             }
-            if(newQuantity > 1) {
+            if(newQuantity >= 1 && quantity > 1) {
                 productsList.replace(product, newQuantity);
             } else {
                 productsList.replace(product, quantity);
