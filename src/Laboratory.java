@@ -3,9 +3,9 @@ import java.util.Map;
 
 public class Laboratory {
 
-    private Map<String, Double> elementsList = new HashMap();
-    Map<String, Map<String, Double>> reactionsList = new HashMap();
-    Map<String, Double> productsList = new HashMap();
+    private Map<String, Double> elementsList = new HashMap<>();
+    Map<String, Map<String, Double>> reactionsList = new HashMap<>();
+    Map<String, Double> productsList = new HashMap<>();
 
     public Laboratory(String[] elements, Map<String, Map<String, Double>> reactions) {
         if(elements.length == 0 || reactions.isEmpty()) {
@@ -20,13 +20,10 @@ public class Laboratory {
             }
 
             for(var r: reactions.keySet()) {
-//                System.out.println("reac " + r);
-//                System.out.println("ingr " + reactions.get(r));
                 if(reactions.get(r).isEmpty()) {
                     throw new IllegalArgumentException("Reactions must contain at least one element");
                 } else {
                     for(var e: reactions.get(r).keySet()) {
-//                        System.out.println("value " + e + " " + reactions.get(r).get(e));
                         if(reactions.get(r).get(e) <= 1.0 && reactions.get(r).size() == 1.0) {
                             throw new IllegalArgumentException("Reactions of same element must be with more than one");
                         } else if(reactions.get(r).get(e) <= 0.0) {
@@ -70,63 +67,43 @@ public class Laboratory {
     }
 
     public double make(String product, double quantity) {
-        if(productsList.containsKey(product) && quantity > 0) {
-            System.out.println("reactions " + reactionsList.get(product));
-//            System.out.println("El entree " + elementsList);
-            Map<String, Double> makingReaction = new HashMap<>(reactionsList.get(product));
-            double newQuantity = 1;
-            for(var e: reactionsList.get(product).keySet()) {
-                newQuantity = 1;
-                makingReaction.replace(e, quantity*reactionsList.get(product).get(e));
-            System.out.println("eRl: " + e + " v: " + reactionsList.get(product).get(e));
-//            System.out.println("eMr: " + e + " v: " + makingReaction.get(e));
-            System.out.println("eQ: " + e + " v: " + getQuantity(e));
-                double diff = reactionsList.get(product).get(e) - getQuantity(e);
-                System.out.println("diff: " + diff);
-                boolean data = Math.abs(reactionsList.get(product).get(e) - getQuantity(e)) < 0.0001;
-                boolean data2 = Math.abs(reactionsList.get(product).get(e)*(newQuantity+1) - getQuantity(e)) < 0.0001;
-                System.out.println("data " + e + ": " + data);
-                System.out.println("data2 " + e + ": " + data2);
-                if(makingReaction.get(e) > getQuantity(e) && reactionsList.get(product).get(e) > getQuantity(e)) {
-                    throw new IllegalArgumentException("Not enough product " + e);
-                } else if(makingReaction.get(e) > getQuantity(e) && /*Math.abs(*/reactionsList.get(product).get(e) < getQuantity(e)/*) < 0.0001*/) {
-                    System.out.println("coucou");
-                    while (reactionsList.get(product).get(e)*newQuantity < getQuantity(e) && Math.abs(reactionsList.get(product).get(e)*(newQuantity+1) - getQuantity(e)) < 0.0001) {
-                        newQuantity++;
-                    }
-                    if(elementsList.containsKey(e)) {
-                        double newElementQuantity = elementsList.get(e) - (newQuantity*reactionsList.get(product).get(e));
-                        elementsList.replace(e, newElementQuantity);
-                    } else if(productsList.containsKey(e)) {
-                        double newElementQuantity = productsList.get(e) - (newQuantity*reactionsList.get(product).get(e));
-                        productsList.replace(e, newElementQuantity);
-                    }
-                } else {
-                    System.out.println("currentE " + e);
-                    if(elementsList.containsKey(e)) {
-                        double newElementQuantity = elementsList.get(e) - makingReaction.get(e);
-                        System.out.println("newElementQuantity " + newElementQuantity);
-                        elementsList.replace(e, newElementQuantity);
-                    } else if(productsList.containsKey(e)) {
-                        double newElementQuantity = productsList.get(e) - makingReaction.get(e);
-                        System.out.println("newElementQuantity " + newElementQuantity);
-                        productsList.replace(e, newElementQuantity);
-                    }
-
-                }
-            }
-            if(newQuantity >= 1 && quantity > 1) {
-                productsList.replace(product, newQuantity);
-            } else {
-                productsList.replace(product, quantity);
-            }
-//        System.out.println("mR " + makingReaction);
-//        System.out.println("El sortie " + elementsList);
-            return productsList.get(product);
-        } else {
+        if(!productsList.containsKey(product)) {
             throw new IllegalArgumentException("Unknown product: " + product);
         }
-
+        
+        if(quantity <= 0) {
+            throw new IllegalArgumentException("Quantity must be greater than zero");
+        }
+        
+        Map<String, Double> reaction = reactionsList.get(product);
+        double maxBatches = Integer.MAX_VALUE;
+        
+        for(var element : reaction.keySet()) {
+            double available = getQuantity(element);
+            double needed = reaction.get(element);
+            double batches = Math.floor(available / needed);
+            maxBatches = Math.min(maxBatches, batches);
+        }
+        
+        double batchesToMake = Math.min(quantity, maxBatches);
+        
+        if(batchesToMake < 1) {
+            throw new IllegalArgumentException("Not enough elements to make the product");
+        }
+        
+        for(var element : reaction.keySet()) {
+            double amountNeeded = reaction.get(element) * batchesToMake;
+            if(elementsList.containsKey(element)) {
+                elementsList.replace(element, elementsList.get(element) - amountNeeded);
+            } else if(productsList.containsKey(element)) {
+                productsList.replace(element, productsList.get(element) - amountNeeded);
+            }
+        }
+        
+        // Add the product to storage
+        productsList.replace(product, productsList.get(product) + batchesToMake);
+        
+        return productsList.get(product);
     }
 
 }
