@@ -76,6 +76,35 @@ public class Laboratory {
         }
         
         Map<String, Double> reaction = reactionsList.get(product);
+        
+        for(var element : reaction.keySet()) {
+            double needed = reaction.get(element) * quantity;
+            double available = getQuantity(element);
+            
+            if(productsList.containsKey(element) && available < needed) {
+                double shortfall = needed - available;
+                boolean canStillMakeOne = true;
+                
+                for(var ing : reaction.keySet()) {
+                    double ingAvailable = getQuantity(ing);
+                    if(ing.equals(element)) {
+                        ingAvailable += shortfall;
+                    }
+                    double ingNeeded = reaction.get(ing);
+                    if(ingAvailable < ingNeeded) {
+                        canStillMakeOne = false;
+                        break;
+                    }
+                }
+                
+                if(canStillMakeOne) {
+                    try {
+                        make(element, shortfall);
+                    } catch (IllegalArgumentException e) {}
+                }
+            }
+        }
+        
         double maxBatches = Integer.MAX_VALUE;
         
         for(var element : reaction.keySet()) {
@@ -90,7 +119,6 @@ public class Laboratory {
         if(batchesToMake < 1) {
             throw new IllegalArgumentException("Not enough elements to make the product");
         }
-        
         for(var element : reaction.keySet()) {
             double amountNeeded = reaction.get(element) * batchesToMake;
             if(elementsList.containsKey(element)) {
@@ -100,9 +128,7 @@ public class Laboratory {
             }
         }
         
-        // Add the product to storage
         productsList.replace(product, productsList.get(product) + batchesToMake);
-        
         return productsList.get(product);
     }
 
